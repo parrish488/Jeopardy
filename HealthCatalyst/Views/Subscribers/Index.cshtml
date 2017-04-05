@@ -1,0 +1,100 @@
+﻿@model PagedList.IPagedList<HealthCatalyst.Models.Subscriber>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Subscriber List";
+}
+
+<h2>Subscribers</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "Subscribers", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <label>Find By Name: </label>
+    <div class="input-group">
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+        <span class="input-group-btn"><input type="submit" class="btn btn-default" value="Search" /></span>
+    </div>
+}
+
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LastNameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            Birth Date
+        </th>
+        <th>
+            Street
+        </th>
+        <th>
+            City
+        </th>
+        <th>
+            State
+        </th>
+        <th>
+            Zip
+        </th>
+        <th>
+            Interests
+        </th>
+        <th>
+            Photo
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Birthdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Street)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Interests)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImagePath)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SubscriberID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SubscriberID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SubscriberID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

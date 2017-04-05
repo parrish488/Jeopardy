@@ -6,17 +6,17 @@ using System.Web;
 
 namespace HealthCatalyst.Models
 {
-    public class DatabaseInitializer : CreateDatabaseIfNotExists<DatabaseContext>
+    public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<DatabaseContext>
     {
         protected override void Seed(DatabaseContext context)
         {
-            var clients = new List<Client>
+            var clients = new List<Subscriber>
             {
-                new Client {FirstName="John", LastName="Doe", Street="123 First Street", City="Nowhere", State="UT", Zip="84000", PrimaryPhone="(801) 888-8888", Email="john_doe@gmail.com" },
-                new Client {FirstName="Jane", LastName="Doe", Street="123 Second Street", City="Nowhere", State="UT", Zip="84000", PrimaryPhone="(801) 888-8888", Email="jane_doe@gmail.com" }
+                new Subscriber {FirstName="John", LastName="Doe", Street="123 First Street", City="Nowhere", State="UT", Zip="84000", Birthdate = new DateTime(2000, 1, 1), Interests = "Outoors" },
+                new Subscriber {FirstName="Jane", LastName="Doe", Street="123 Second Street", City="Nowhere", State="UT", Zip="84000", Birthdate = new DateTime(2000, 7, 1), Interests = "Cooking" }
             };
 
-            context.Clients.AddRange(clients);
+            context.Subscribers.AddRange(clients);
 
             context.SaveChanges();
 
