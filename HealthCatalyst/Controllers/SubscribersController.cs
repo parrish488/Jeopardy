@@ -159,6 +159,22 @@ namespace HealthCatalyst.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public JsonResult Search(string content)
+        {
+
+            var subscriberList = from s in db.Subscribers
+                                 select s;
+
+            if (!string.IsNullOrEmpty(content))
+            {
+                subscriberList = subscriberList.Where(c => c.LastName.Contains(content)
+                                       || c.FirstName.Contains(content));
+            }
+
+            return Json(subscriberList.ToList());
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

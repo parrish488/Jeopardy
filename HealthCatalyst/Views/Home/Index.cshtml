@@ -3,7 +3,61 @@
 }
 
 <div class="row">
-    <div class="col-md-6 col-md-offset-3 text-center">
+    <div class="col-md-8 col-md-offset-2">
         <h2>Search Here</h2>
+        <div class="input-group">
+            <input id="searchContent" class="form-control" type="text" placeholder="Enter Name" />
+            <span class="input-group-btn">
+                <button id="searchButton" name="searchButton" class="btn btn-default">Search</button>
+            </span>
+        </div>
+        <hr />
+        <table id="results" class="table table-striped text-center">
+            <thead>
+                <tr><th class="text-center">Name</th><th class="text-center">Address</th><th class="text-center">Interests</th><th class="text-center">Image</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
 </div>
+
+<div id="loadingModal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <div class="modal-body">
+                <h2>Loading Data. Please Wait.</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('#searchButton').click(function () {
+            $('#results tbody').empty();
+            $('#loadingModal').show();
+            $.ajax({
+                url: '/Subscribers/Search',
+                data: '{content: "' + $("#searchContent").val() + '" }',
+                contentType: 'application/json; charset=utf-8',
+                type: 'POST',
+                dataType: 'json',
+                success: function (response) {
+                    var len = response.length;
+                    for (var i = 0; i < len; i++) {
+                        $('#results tbody').append('<tr><td>' + response[i].FullName + '</td>'
+                            + '<td>' + response[i].Street + ' ' + response[i].City + ', ' + response[i].State + ' ' + response[i].Zip + '</td>'
+                            + '<td>' + response[i].Interests + '</td>'
+                            + '<td>' + response[i].ImagePath + '</td></tr>');
+                    }
+                    //alert(response);
+                    $('#loadingModal').hide();
+                },
+                error: function (response) {
+                    alert("There was an issue...");
+                }
+
+            });
+        });
+    </script>
+}
