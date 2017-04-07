@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using HealthCatalyst.Models;
 using PagedList;
+using System.IO;
 
 namespace HealthCatalyst.Controllers
 {
@@ -71,11 +72,14 @@ namespace HealthCatalyst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Subscriber subscriber = db.Subscribers.Find(id);
+
             if (subscriber == null)
             {
                 return HttpNotFound();
             }
+
             return View(subscriber);
         }
 
@@ -90,12 +94,18 @@ namespace HealthCatalyst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SubscriberID,FirstName,LastName,Birthdate,Street,City,State,Zip,Interests,ImagePath")] Subscriber subscriber)
+        public ActionResult Create([Bind(Include = "SubscriberID,FirstName,LastName,Birthdate,Street,City,State,Zip,Interests,ImagePath")] Subscriber subscriber, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (!string.IsNullOrEmpty(file.FileName))
+                {
+                    subscriber.ImagePath = file.FileName;
+                }
+
                 db.Subscribers.Add(subscriber);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
@@ -109,11 +119,14 @@ namespace HealthCatalyst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Subscriber subscriber = db.Subscribers.Find(id);
+
             if (subscriber == null)
             {
                 return HttpNotFound();
             }
+
             return View(subscriber);
         }
 
@@ -128,8 +141,10 @@ namespace HealthCatalyst.Controllers
             {
                 db.Entry(subscriber).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
+
             return View(subscriber);
         }
 
@@ -140,11 +155,14 @@ namespace HealthCatalyst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Subscriber subscriber = db.Subscribers.Find(id);
+
             if (subscriber == null)
             {
                 return HttpNotFound();
             }
+
             return View(subscriber);
         }
 
@@ -156,6 +174,7 @@ namespace HealthCatalyst.Controllers
             Subscriber subscriber = db.Subscribers.Find(id);
             db.Subscribers.Remove(subscriber);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -181,6 +200,7 @@ namespace HealthCatalyst.Controllers
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

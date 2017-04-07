@@ -14,7 +14,7 @@
         <hr />
         <table id="results" class="table table-striped text-center">
             <thead>
-                <tr><th class="text-center">Name</th><th class="text-center">Address</th><th class="text-center">Interests</th><th class="text-center">Image</th></tr>
+                <tr><th class="text-center">Name</th><th class="text-center">Address</th><th class="text-center">Age</th><th class="text-center">Interests</th><th class="text-center">Image</th></tr>
             </thead>
             <tbody></tbody>
         </table>
@@ -45,12 +45,21 @@
                 success: function (response) {
                     var len = response.length;
                     for (var i = 0; i < len; i++) {
-                        $('#results tbody').append('<tr><td>' + response[i].FullName + '</td>'
+                        var rowData = '<tr><td>' + response[i].FullName + '</td>'
                             + '<td>' + response[i].Street + ' ' + response[i].City + ', ' + response[i].State + ' ' + response[i].Zip + '</td>'
-                            + '<td>' + response[i].Interests + '</td>'
-                            + '<td>' + response[i].ImagePath + '</td></tr>');
+                            + '<td>' + getSubscriberAge(response[i].Birthdate.toString()) + '</td>'
+                            + '<td>' + response[i].Interests + '</td>';
+
+                        if (response[i].ImagePath == null) {
+                            rowData = rowData.concat('<td><img src="/Uploads/Generic_Profile.jpg" alt="Profile Picture" height="50" width="50" /></td></tr>');
+                        }
+                        else {
+                            rowData = rowData.concat('<td><img src="/Uploads/' + response[i].ImagePath + '" alt="Profile Picture" height="50" width="50" /></td></tr>');
+                        }
+
+                        $('#results tbody').append(rowData);
                     }
-                    //alert(response);
+
                     $('#loadingModal').hide();
                 },
                 error: function (response) {
@@ -59,5 +68,19 @@
 
             });
         });
+
+        function getSubscriberAge(date) {
+            var currentDate = new Date();
+            var birthdate = new Date(parseInt(date.substr(6)));
+            var age = currentDate.getFullYear() - birthdate.getFullYear();
+
+            //Check months
+            var months = currentDate.getMonth() - birthdate.getMonth();
+            if (months < 0 || (months === 0 && currentDate.getDate() < birthdate.getDate())) {
+                age--;
+            }
+
+            return age;
+        }
     </script>
 }

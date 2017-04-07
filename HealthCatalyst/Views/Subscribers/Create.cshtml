@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Subscribers", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -80,10 +80,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ImagePath, "", new { @class = "text-danger" })
+            <div class="col-md-offset-2 col-md-10">
+                <div class="editor-field">
+                    <input id="ImagePath" title="Upload a product image" type="file" name="file" class="form-control" />
+                </div>
             </div>
         </div>
 
@@ -99,6 +99,34 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+<div id="uploadModal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <h2>Select a picture to upload:</h2>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("UploadFile", "Subscribers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div>
+                        @Html.TextBox("file", "", new { type = "file" }) 
+                        <br />
+                        <input type="submit" value="Upload" />
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $('#uploadFile').click(function () {
+            $('#uploadModal').show();
+        });
+    </script>
 }

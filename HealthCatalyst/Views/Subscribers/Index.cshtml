@@ -81,7 +81,14 @@
             @Html.DisplayFor(modelItem => item.Interests)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ImagePath)
+            @if (string.IsNullOrEmpty(item.ImagePath))
+            {
+                <img src="/Uploads/Generic_Profile.jpg" alt="Profile Picture" height="50" width="50" />
+            }
+            else
+            {
+                <img src="/Uploads/@Html.DisplayFor(modelItem => item.ImagePath)" alt="Profile Picture" height="50" width="50" />
+            }
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.SubscriberID }) |
