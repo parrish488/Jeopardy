@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@model Jeopardy.Models.Board
+
+<br/>
+
+<div class="row text-center">
+    <div class="col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>@Model.Category1.First().CategoryName</h3>
+            </div>
+            <div class="panel-body">
+                @foreach (var question in Model.Category1)
+                {
+                    <div class="row">
+                        @if (question.BeenVisited)
+                        {
+                            <button class="btn btn-lg btn-primary disabled"></button>
+                        }
+                        else
+                        {
+                            @Html.ActionLink((question.Row * 100).ToString(), "Show", "Question", new { id = question.Id }, new { @class = "btn btn-lg btn-primary" })
+                        }
+                        <hr />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>@Model.Category2.First().CategoryName</h3>
+            </div>
+            <div class="panel-body">
+                @foreach (var question in Model.Category2)
+                {
+                    <div class="row">
+                        @if (question.BeenVisited)
+                        {
+                            <button class="btn btn-lg btn-primary disabled"></button>
+                        }
+                        else
+                        {
+                            @Html.ActionLink((question.Row * 100).ToString(), "Show", "Question", new { id = question.Id }, new { @class = "btn btn-lg btn-primary" })
+                        }
+                        <hr />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>@Model.Category3.First().CategoryName</h3>
+            </div>
+            <div class="panel-body">
+                @foreach (var question in Model.Category3)
+                {
+                    <div class="row">
+                        @if (question.BeenVisited)
+                        {
+                            <button class="btn btn-lg btn-primary disabled"></button>
+                        }
+                        else
+                        {
+                            @Html.ActionLink((question.Row * 100).ToString(), "Show", "Question", new { id = question.Id }, new { @class = "btn btn-lg btn-primary" })
+                        }
+                        <hr />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>@Model.Category4.First().CategoryName</h3>
+            </div>
+            <div class="panel-body">
+                @foreach (var question in Model.Category4)
+                {
+                    <div class="row">
+                        @if (question.BeenVisited)
+                        {
+                            <button class="btn btn-lg btn-primary disabled"></button>
+                        }
+                        else
+                        {
+                            @Html.ActionLink((question.Row * 100).ToString(), "Show", "Question", new { id = question.Id }, new { @class = "btn btn-lg btn-primary" })
+                        }
+                        <hr />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>@Model.Category5.First().CategoryName</h3>
+            </div>
+            <div class="panel-body">
+                @foreach (var question in Model.Category5)
+                {
+                    <div class="row">
+                        @if (question.BeenVisited)
+                        {
+                            <button class="btn btn-lg btn-primary disabled"></button>
+                        }
+                        else
+                        {
+                            @Html.ActionLink((question.Row * 100).ToString(), "Show", "Question", new { id = question.Id }, new { @class = "btn btn-lg btn-primary" })
+                        }
+                        <hr />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>@Model.Category6.First().CategoryName</h3>
+            </div>
+            <div class="panel-body">
+                @foreach (var question in Model.Category6)
+                {
+                    <div class="row">
+                        @if (question.BeenVisited)
+                        {
+                            <button class="btn btn-lg btn-primary disabled"></button>
+                        }
+                        else
+                        {
+                            @Html.ActionLink((question.Row * 100).ToString(), "Show", "Question", new { id = question.Id }, new { @class = "btn btn-lg btn-primary" })
+                        }
+                        <hr />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
