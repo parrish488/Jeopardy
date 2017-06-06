@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Control";
+}
+
+@model SortedDictionary<DateTime, string>
+
+<br/>
+
+<div class="row text-center">
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var entry in Model)
+                {
+                    <tr>
+                        <td>
+                            @entry.Value
+                        </td>
+                        <td>
+                            @entry.Key.ToString("HH:mm:ss.fffff")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <button id="clearTable" class="btn btn-primary btn-lg">Clear Table</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#clearTable").click(function () {
+            $.ajax({
+                url: "/BuzzIn/Clear",
+                type: "POST",
+                dataType: "json",
+                success: function (data) {
+                    location.reload();
+                }
+            }
+            );
+        });
+    </script>
+}
+

@@ -136,6 +136,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BoardController.cs" />
+    <Compile Include="Controllers\BuzzInController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Global.asax.cs">
@@ -198,6 +199,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Board\Index.cshtml" />
     <Content Include="Views\Question\Show.cshtml" />
+    <Content Include="Views\BuzzIn\Index.cshtml" />
+    <Content Include="Views\BuzzIn\Control.cshtml" />
+    <Content Include="Views\Question\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
