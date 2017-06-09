@@ -64,13 +64,20 @@ namespace Jeopardy.Controllers
                         {
                             for (int i = 0; i < 6; i++)
                             {
+                                string[] questionItems = lineItems[i].Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
                                 Question question = new Question()
                                 {
                                     CategoryName = categories[i],
-                                    QuestionText = lineItems[i],
+                                    QuestionText = questionItems[0],
                                     Column = i,
                                     Row = lineCount
                                 };
+
+                                if (questionItems.Length == 2)
+                                {
+                                    question.ImagePath = questionItems[1];
+                                }
 
                                 db.Questions.Add(question);
                             }

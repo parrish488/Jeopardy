@@ -14,6 +14,7 @@ namespace Jeopardy.Models
         public bool IsDailyDouble { get; set; } = false;
         public string CategoryName { get; set; } = string.Empty;
         public string QuestionText { get; set; } = string.Empty;
+        public string ImagePath { get; set; } = string.Empty;
         public string dummy { get; set; } = string.Empty;
 
         public int CompareTo(Question other)
