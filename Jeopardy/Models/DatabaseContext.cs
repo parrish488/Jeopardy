@@ -10,12 +10,6 @@ namespace Jeopardy.Models
 {
     public class DatabaseContext : DbContext
     {
-        public DatabaseContext()
-            : base("DatabaseContext")
-        {
-
-        }
-
         public DbSet<Question> Questions { get; set; }
         public DbSet<BuzzIn> BuzzIns { get; set; }
 
